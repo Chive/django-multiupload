@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import os
+
 from setuptools import setup, find_packages
+
 from multiupload import __version__
+
 
 REQUIREMENTS = []
 
@@ -20,7 +24,8 @@ CLASSIFIERS = [
 setup(
     name='django-multiupload',
     version=__version__,
-    description='A short description of the app.',
+    description='Dead simple drop-in multi file upload field for django forms using HTML5\'s multiple attribute.',
+    long_description=open(os.path.join(os.path.dirname(__file__), 'README.rst')).read(),
     author='Chive',
     author_email='kim@smuzey.ch',
     url='https://github.com/Chive/django-multiupload',

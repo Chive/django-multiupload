@@ -33,7 +33,9 @@ class MultiFileField(forms.FileField):
     def to_python(self, data):
         ret = []
         for item in data:
-            ret.append(super(MultiFileField, self).to_python(item))
+            i = super(MultiFileField, self).to_python(item)
+            if i:
+                ret.append(i)
         return ret
 
     def validate(self, data):
@@ -47,4 +49,6 @@ class MultiFileField(forms.FileField):
             raise ValidationError(self.error_messages['max_num'] % {'max_num': self.max_num, 'num_files': num_files})
         for uploaded_file in data:
             if uploaded_file.size > self.maximum_file_size:
-                raise ValidationError(self.error_messages['file_size'] % { 'uploaded_file_name': uploaded_file.name})
+                raise ValidationError(self.error_messages['file_size'] % {'uploaded_file_name': uploaded_file.name})
+
+

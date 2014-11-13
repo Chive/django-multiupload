@@ -48,5 +48,5 @@ class MultiFileField(forms.FileField):
         elif self.max_num and num_files > self.max_num:
             raise ValidationError(self.error_messages['max_num'] % {'max_num': self.max_num, 'num_files': num_files})
         for uploaded_file in data:
-            if uploaded_file.size > self.maximum_file_size:
+            if self.maximum_file_size and uploaded_file.size > self.maximum_file_size:
                 raise ValidationError(self.error_messages['file_size'] % {'uploaded_file_name': uploaded_file.name})

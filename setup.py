@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 from multiupload import __version__
 
 
-REQUIREMENTS = []
+REQUIREMENTS = ["django"]
 
 CLASSIFIERS = [
     'Development Status :: 4 - Beta',

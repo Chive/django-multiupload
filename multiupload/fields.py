@@ -50,3 +50,12 @@ class MultiFileField(forms.FileField):
         for uploaded_file in data:
             if self.maximum_file_size and uploaded_file.size > self.maximum_file_size:
                 raise ValidationError(self.error_messages['file_size'] % {'uploaded_file_name': uploaded_file.name})
+
+class MultiImageField(MultiFileField, forms.ImageField):
+    def to_python(self, data):
+        ret = []
+        for item in data:
+            i = forms.ImageField.to_python(self,item)
+            if i:
+                ret.append(i)
+        return ret 

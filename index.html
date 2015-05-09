@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Django-multiupload by Chive</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Django-multiupload</h1>
+      <h2 class="project-tagline">Dead simple drop-in multi file upload field for django forms using HTML5&#39;s multiple attribute.</h2>
+      <a href="https://github.com/Chive/django-multiupload" class="btn">View on GitHub</a>
+      <a href="https://github.com/Chive/django-multiupload/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Chive/django-multiupload/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="django-multiupload" class="anchor" href="#django-multiupload" aria-hidden="true"><span class="octicon octicon-link"></span></a>Django Multiupload</h1>
+
+<p>Dead simple drop-in multi file upload field for django forms using HTML5's <code>multiple</code> attribute.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<ul>
+<li>Install the package using pip (or easy_install if you really have to)</li>
+</ul>
+
+<div class="highlight highlight-bash"><pre>$ pip install django-multiupload</pre></div>
+
+<ul>
+<li>or directly from this repository the get the development version (if you're feeling adventurous)</li>
+</ul>
+
+<div class="highlight highlight-bash"><pre>$ pip install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupload</pre></div>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Add the form field to your form and make sure to save the uploaded files in the form's <code>save</code> method.</p>
+
+<p>For more detailed examples visit the <a href="https://github.com/Chive/django-multiupload/tree/master/examples">examples section</a></p>
+
+<div class="highlight highlight-python"><pre><span class="pl-c"># forms.py</span>
+<span class="pl-k">from</span> django <span class="pl-k">import</span> forms
+<span class="pl-k">from</span> multiupload.fields <span class="pl-k">import</span> MultiFileField
+
+<span class="pl-k">class</span> <span class="pl-en">UploadForm</span>(<span class="pl-e">forms.Form</span>):
+    attachments <span class="pl-k">=</span> MultiFileField(<span class="pl-smi">min_num</span><span class="pl-k">=</span><span class="pl-c1">1</span>, <span class="pl-smi">max_num</span><span class="pl-k">=</span><span class="pl-c1">3</span>, <span class="pl-smi">max_file_size</span><span class="pl-k">=</span><span class="pl-c1">1024</span><span class="pl-k">*</span><span class="pl-c1">1024</span><span class="pl-k">*</span><span class="pl-c1">5</span>)
+</pre></div>
+
+<div class="highlight highlight-python"><pre><span class="pl-c"># models.py</span>
+<span class="pl-k">from</span> django.db <span class="pl-k">import</span> models
+
+<span class="pl-k">class</span> <span class="pl-en">Attachment</span>(<span class="pl-e">models.Model</span>):
+    file <span class="pl-k">=</span> models.FileField(<span class="pl-smi">upload_to</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>attachments<span class="pl-pds">'</span></span>)
+</pre></div>
+
+<div class="highlight highlight-python"><pre><span class="pl-c"># views.py</span>
+<span class="pl-k">from</span> django.views.generic.edit <span class="pl-k">import</span> FormView
+<span class="pl-k">from</span> .forms <span class="pl-k">import</span> UploadForm
+<span class="pl-k">from</span> .models <span class="pl-k">import</span> Attachment
+
+<span class="pl-k">class</span> <span class="pl-en">UploadView</span>(<span class="pl-e">FormView</span>):
+    template_name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>form.html<span class="pl-pds">'</span></span>
+    form_class <span class="pl-k">=</span> UploadForm
+    success_url <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>/done/<span class="pl-pds">'</span></span>
+
+    <span class="pl-k">def</span> <span class="pl-en">form_valid</span>(<span class="pl-smi">self</span>, <span class="pl-smi">form</span>):
+        <span class="pl-k">for</span> each <span class="pl-k">in</span> form.cleaned_data[<span class="pl-s"><span class="pl-pds">'</span>attachments<span class="pl-pds">'</span></span>]:
+            Attachment.objects.create(<span class="pl-smi">file</span><span class="pl-k">=</span>each)
+        <span class="pl-k">return</span> <span class="pl-c1">super</span>(UploadView, <span class="pl-v">self</span>).form_valid(form)
+</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Chive/django-multiupload">Django-multiupload</a> is maintained by <a href="https://github.com/Chive">Chive</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-62795232-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
+

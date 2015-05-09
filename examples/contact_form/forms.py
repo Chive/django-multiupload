@@ -15,6 +15,6 @@ class ContactForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(ContactForm, self).save(commit)
         for each in self.cleaned_data['files']:
-            Attachment.objects.create(attachment=each, message=instance)
+            Attachment.objects.create(file=each, message=instance)
 
         return instance

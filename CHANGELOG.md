@@ -1,0 +1,42 @@
+# Change Log
+
+## [0.4](https://github.com/Chive/django-multiupload/tree/0.4) (2015-06-13)
+
+### New
+* Add two example usages
+* Add changelog
+* Add authors file
+
+### Change
+* Improved usage instrutions in README
+
+### Fix
+* Fix form validation when checking for maximum file size
+* Fix the type of the return value from ``value_from_datadict`` when ``getlist`` is not a method of the ``files`` parameter.
+
+[Full Changelog](https://github.com/Chive/django-multiupload/compare/0.3...0.4)
+
+## [0.3](https://github.com/Chive/django-multiupload/tree/0.3) (2014-07-15)
+
+### Fix
+* Fix empty form object handling (no files submitted)
+
+[Full Changelog](https://github.com/Chive/django-multiupload/compare/0.2...0.3)
+
+## [0.2](https://github.com/Chive/django-multiupload/tree/0.2) (2014-07-06)
+
+### Change
+* Update README
+
+
+### Fix
+* Fix package config
+
+[Full Changelog](https://github.com/Chive/django-multiupload/compare/0.1...0.2)
+
+## [0.1](https://github.com/Chive/django-multiupload/tree/0.1) (2014-07-05)
+
+### New
+* Initial Release
+
+[Full Changelog](https://github.com/Chive/django-multiupload/commit/8ef0df5506dc213714f52ce5801f2c41452e3acc)

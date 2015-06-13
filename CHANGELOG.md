@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.5](https://github.com/Chive/django-multiupload/tree/0.5) (2015-06-14)
+
+### New
+* Add tests & integration with Travis CI
+* Mark as Python3 compatible
+
+[Full Changelog](https://github.com/Chive/django-multiupload/compare/0.4...0.5)
+
 ## [0.4](https://github.com/Chive/django-multiupload/tree/0.4) (2015-06-13)
 
 ### New

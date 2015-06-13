@@ -13,7 +13,11 @@ class MultiFileInput(forms.FileInput):
         if hasattr(files, 'getlist'):
             return files.getlist(name)
         else:
-            return [files.get(name)]
+            value = files.get(name)
+            if isinstance(value, list):
+                return value
+            else:
+                return [value]
 
 
 class MultiFileField(forms.FileField):

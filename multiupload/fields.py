@@ -36,6 +36,7 @@ class MultiFileField(forms.FileField):
 
     def to_python(self, data):
         ret = []
+        data = data or []
         for item in data:
             i = super(MultiFileField, self).to_python(item)
             if i:
@@ -47,6 +48,8 @@ class MultiFileField(forms.FileField):
         num_files = len(data)
         if len(data) and not data[0]:
             num_files = 0
+        if not self.required and num_files == 0:
+            return
         if num_files < self.min_num:
             raise ValidationError(self.error_messages['min_num'] % {'min_num': self.min_num, 'num_files': num_files})
         elif self.max_num and num_files > self.max_num:

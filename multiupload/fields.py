@@ -8,8 +8,14 @@ from django.utils.translation import ugettext_lazy as _
 MEDIA_TYPES = ['image', 'audio', 'video']
 
 class MultiUploadMetaInput(forms.ClearableFileInput):
-    def render(self, name, value, attrs=None):
-        attrs['multiple'] = 'multiple'
+    def __init__(self, *args, **kwargs):
+        self.multiple = kwargs.pop('multiple', True)
+        super(MultiUploadMetaInput, self).__init__(*args, **kwargs)
+
+    def render(self, name, value, attrs = None):
+        if self.multiple:
+            attrs['multiple'] = 'multiple'
+
         return super(MultiUploadMetaInput, self).render(name, value, attrs)
 
     def value_from_datadict(self, data, files, name):
@@ -33,7 +39,7 @@ class MultiUploadMetaField(forms.FileField):
         self.min_num = kwargs.pop('min_num', 0)
         self.max_num = kwargs.pop('max_num', None)
         self.maximum_file_size = kwargs.pop('max_file_size', None)
-        self.widget = MultiUploadMetaInput(attrs = kwargs.pop('attrs', {}))
+        self.widget = MultiUploadMetaInput(attrs = kwargs.pop('attrs', {}), multiple = (self.max_num is None or self.max_num > 1))
         super(MultiUploadMetaField, self).__init__(*args, **kwargs)
 
     def to_python(self, data):
@@ -60,12 +66,11 @@ class MultiUploadMetaField(forms.FileField):
             if self.maximum_file_size and uploaded_file.size > self.maximum_file_size:
                 raise ValidationError(self.error_messages['file_size'] % {'uploaded_file_name': uploaded_file.name})
 
-class MultiMediaInput(MultiUploadMetaInput):
+# handle plain files
+class MultiFileField(MultiUploadMetaField):
     pass
 
-class MultiFileInput(MultiUploadMetaField):
-    pass
-
+# handle multimedia files
 class MultiMediaField(MultiUploadMetaField):
     error_messages = {
         'wrong_type': _(u'Invalid media_type. Valid types are: %(valid_types)s')
@@ -80,5 +85,16 @@ class MultiMediaField(MultiUploadMetaField):
         kwargs.update({ 'attrs': {'accept': '{0}/*'.format(self.media_type)} })
         super(MultiMediaField, self).__init__(*args, **kwargs)
 
-class MultiFileField(MultiUploadMetaField):
-    pass
+# handle multiple image uploads, requires Pillow to be installed
+class MultiImageField(MultiMediaField, forms.ImageField):
+    def __init__(self, *args, **kwargs):
+        kwargs.update({ 'media_type': 'image' })
+        super(MultiImageField, self).__init__(*args, **kwargs)
+
+    def to_python(self, data):
+        ret = []
+        for item in data:
+            i = forms.ImageField.to_python(self,item)
+            if i:
+                ret.append(i)
+        return ret

@@ -1,5 +1,7 @@
 language: python
+
 python: 2.7
+
 env:
   - TOX_ENV=py27-dj14
   - TOX_ENV=py27-dj15
@@ -11,7 +13,10 @@ env:
   - TOX_ENV=py34-dj16
   - TOX_ENV=py34-dj17
   - TOX_ENV=py34-dj18
+  - TOX_ENV=lint
+
 install:
   - pip install tox
+
 script:
   - tox -e $TOX_ENV

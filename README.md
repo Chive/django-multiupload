@@ -1,5 +1,8 @@
 # Django Multiupload
 
+[![Build Status](https://travis-ci.org/Chive/django-multiupload.svg?branch=master)](https://travis-ci.org/Chive/django-multiupload)
+
+
 Dead simple drop-in multi file upload field for django forms using HTML5's ``multiple`` attribute.
 
 ## Installation

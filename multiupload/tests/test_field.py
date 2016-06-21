@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+"""
+Test cases for the fields.
+"""
+
 from django import forms
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile

@@ -13,7 +13,7 @@ Dead simple drop-in multi file upload field for django forms using HTML5's ``mul
 $ pip install django-multiupload
 ```
 
-* or directly from this repository the get the development version (if you're feeling adventurous)
+* Or directly from this repository the get the development version (if you're feeling adventurous)
 
 ```bash
 $ pip install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupload
@@ -23,7 +23,7 @@ $ pip install -e git+https://github.com/Chive/django-multiupload.git#egg=multiup
 
 Add the form field to your form and make sure to save the uploaded files in the form's ``save`` method.
 
-For more detailed examples visit the [examples section](https://github.com/Chive/django-multiupload/tree/master/examples)
+For more detailed examples visit the [examples section](https://github.com/Chive/django-multiupload/tree/master/examples).
 
 
 ```python
@@ -34,7 +34,7 @@ from multiupload.fields import MultiFileField
 class UploadForm(forms.Form):
     attachments = MultiFileField(min_num=1, max_num=3, max_file_size=1024*1024*5)
 
-    # If you need to upload media files, you can use do this:
+    # If you need to upload media files, you can use this:
     attachments = MultiMediaField(
         min_num=1, 
         max_num=3, 
@@ -46,7 +46,7 @@ class UploadForm(forms.Form):
     attachments = MultiImageField(min_num=1, max_num=3, max_file_size=1024*1024*5)
 ```
 
-(The latter two options just add fancy attributes to HTML's `<input>`, restricting the scope to corresponding filetypes)
+The latter two options just add fancy attributes to HTML's `<input>`, restricting the scope to corresponding filetypes.
 
 ```python
 # models.py

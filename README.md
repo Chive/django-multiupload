@@ -19,8 +19,7 @@ $ pip install django-multiupload
 $ pip install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupload
 ```
 
-Usage
------
+## Usage
 
 Add the form field to your form and make sure to save the uploaded files in the form's ``save`` method.
 
@@ -35,11 +34,16 @@ from multiupload.fields import MultiFileField
 class UploadForm(forms.Form):
     attachments = MultiFileField(min_num=1, max_num=3, max_file_size=1024*1024*5)
 
-    # if you need to upload media files, you can use do this:
-	attachments = MultiMediaField(min_num=1, max_num=3, max_file_size=1024*1024*5, media_type = 'video') # 'audio', 'video' or 'image'
+    # If you need to upload media files, you can use do this:
+    attachments = MultiMediaField(
+        min_num=1, 
+        max_num=3, 
+        max_file_size=1024*1024*5, 
+        media_type='video'  # 'audio', 'video' or 'image'
+    )
 
-	# for images (requires Pillow for validation):
-	attachments = MultiImageField(min_num=1, max_num=3, max_file_size=1024*1024*5)
+    # For images (requires Pillow for validation):
+    attachments = MultiImageField(min_num=1, max_num=3, max_file_size=1024*1024*5)
 ```
 
 (The latter two options just add fancy attributes to HTML's `<input>`, restricting the scope to corresponding filetypes)

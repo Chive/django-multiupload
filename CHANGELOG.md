@@ -1,5 +1,19 @@
 # Change Log
 
+## [0.5.2](https://github.com/Chive/django-multiupload/tree/0.5.2) (2016-10-14)
+
+### New
+* Support for specific media types in inputs (with dedicated field for images)
+
+[Full Changelog](https://github.com/Chive/django-multiupload/compare/0.5.1...0.5.2)
+
+## [0.5.1](https://github.com/Chive/django-multiupload/tree/0.5.1) (2016-04-25)
+
+### Fix
+* `MultiFileField` can now accept empty values when required is `False`
+
+[Full Changelog](https://github.com/Chive/django-multiupload/compare/0.5...0.5.1)
+
 ## [0.5](https://github.com/Chive/django-multiupload/tree/0.5) (2015-06-14)
 
 ### New

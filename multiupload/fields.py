@@ -20,14 +20,16 @@ class MultiUploadMetaInput(forms.ClearableFileInput):
         self.multiple = kwargs.pop('multiple', True)
         super(MultiUploadMetaInput, self).__init__(*args, **kwargs)
 
-    def render(self, name, value, attrs=None, renderer=None):
+    def render(self, name, value, attrs=None, **kwargs):
+        # ignoring to support both django 1.10 and 1.11 with extra parameter
+        # pylint: disable=arguments-differ
         if self.multiple:
             if not attrs:
                 attrs = {}
             attrs['multiple'] = 'multiple'
 
         return super(MultiUploadMetaInput, self).render(
-            name, value, attrs, renderer=renderer)
+            name, value, attrs, **kwargs)
 
     def value_from_datadict(self, data, files, name):
         if hasattr(files, 'getlist'):

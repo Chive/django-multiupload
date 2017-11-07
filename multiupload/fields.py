@@ -20,21 +20,22 @@ class MultiUploadMetaInput(forms.ClearableFileInput):
         self.multiple = kwargs.pop('multiple', True)
         super(MultiUploadMetaInput, self).__init__(*args, **kwargs)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         if self.multiple:
+            if not attrs:
+                attrs = {}
             attrs['multiple'] = 'multiple'
 
-        return super(MultiUploadMetaInput, self).render(name, value, attrs)
+        return super(MultiUploadMetaInput, self).render(
+            name, value, attrs, renderer=renderer)
 
     def value_from_datadict(self, data, files, name):
         if hasattr(files, 'getlist'):
             return files.getlist(name)
-        else:
-            value = files.get(name)
-            if isinstance(value, list):
-                return value
-            else:
-                return [value]
+        value = files.get(name)
+        if value is None or isinstance(value, list):
+            return value
+        return [value]
 
 
 class MultiUploadMetaField(forms.FileField):
@@ -71,11 +72,11 @@ class MultiUploadMetaField(forms.FileField):
                 ret.append(i)
         return ret
 
-    def validate(self, data):
-        super(MultiUploadMetaField, self).validate(data)
+    def validate(self, value):
+        super(MultiUploadMetaField, self).validate(value)
 
-        num_files = len(data)
-        if num_files and not data[0]:
+        num_files = len(value)
+        if num_files and not value[0]:
             num_files = 0
 
         if not self.required and num_files == 0:
@@ -96,7 +97,7 @@ class MultiUploadMetaField(forms.FileField):
                 }
             )
 
-        for uploaded_file in data:
+        for uploaded_file in value:
             if (self.maximum_file_size and
                     uploaded_file.size > self.maximum_file_size):
                 raise ValidationError(

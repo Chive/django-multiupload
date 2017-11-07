@@ -22,6 +22,8 @@ class MultiUploadMetaInput(forms.ClearableFileInput):
 
     def render(self, name, value, attrs=None, renderer=None):
         if self.multiple:
+            if not attrs:
+                attrs = {}
             attrs['multiple'] = 'multiple'
         return super().render(name, value, attrs, renderer)
 
@@ -29,7 +31,7 @@ class MultiUploadMetaInput(forms.ClearableFileInput):
         if hasattr(files, 'getlist'):
             return files.getlist(name)
         value = files.get(name)
-        if isinstance(value, list):
+        if value is None or isinstance(value, list):
             return value
         return [value]
 

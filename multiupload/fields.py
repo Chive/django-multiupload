@@ -24,7 +24,7 @@ class MultiUploadMetaInput(forms.ClearableFileInput):
         if self.multiple:
             attrs['multiple'] = 'multiple'
 
-        return super(MultiUploadMetaInput, self).render(name, value, attrs=attrs, renderer=renderer)
+        return super(MultiUploadMetaInput, self).render(name, value, attrs=None, renderer=None)
 
     def value_from_datadict(self, data, files, name):
         if hasattr(files, 'getlist'):

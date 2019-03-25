@@ -13,6 +13,17 @@ from multiupload.fields import MultiFileField
 from .utils import UploadTestForm
 
 
+class FormTestCase(TestCase):
+    """
+    Test general form related cases
+    """
+
+    def test_render(self):
+        """Test form rendering"""
+        form = UploadTestForm()
+        result = form.as_p()
+        self.assertIsNotNone(result)
+
 class MinMaxNumTestCase(TestCase):
     """
     Test minimum / maximum file upload count validation

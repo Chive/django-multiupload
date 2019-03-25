@@ -1,2 +1,3 @@
 pytest
-psycopg2
+pytest-django
+psycopg2-binary

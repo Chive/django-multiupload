@@ -1,6 +1,6 @@
 language: python
-
 python: 3.7
+dist: xenial
 
 env:
   - TOX_ENV=py2.7-dj1.11

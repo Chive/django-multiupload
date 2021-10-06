@@ -1,5 +1,19 @@
 # Change Log
 
+## [0.6.0](https://github.com/Chive/django-multiupload/tree/0.6.0) (2021-10-06)
+
+
+### Fix
+* Proper handling of non-required fields [#46](https://github.com/Chive/django-multiupload/pull/46) and [#47](https://github.com/Chive/django-multiupload/pull/47)
+* Fix issue with widget rendering for Django >= 2.1 [#32](https://github.com/Chive/django-multiupload/pull/32)
+
+### Maintenance
+* Update supported versions [#45](https://github.com/Chive/django-multiupload/pull/45)
+* Add testing utilities [#48](https://github.com/Chive/django-multiupload/pull/48)
+
+[Full Changelog](https://github.com/Chive/django-multiupload/compare/0.5.2...0.6.0)
+
+
 ## [0.5.2](https://github.com/Chive/django-multiupload/tree/0.5.2) (2016-10-14)
 
 ### New

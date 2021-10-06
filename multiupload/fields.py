@@ -6,7 +6,7 @@ This module contains form fields to work with.
 
 from django import forms
 from django.core.exceptions import ValidationError, FieldError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # Feel free to extend this, see
 # http://www.iana.org/assignments/media-types/media-types.xhtml
@@ -18,13 +18,12 @@ class MultiUploadMetaInput(forms.ClearableFileInput):
 
     def __init__(self, *args, **kwargs):
         self.multiple = kwargs.pop('multiple', True)
-        super(MultiUploadMetaInput, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None, renderer=None):
         if self.multiple:
             attrs['multiple'] = 'multiple'
-
-        return super(MultiUploadMetaInput, self).render(name, value, attrs, renderer)
+        return super().render(name, value, attrs, renderer)
 
     def value_from_datadict(self, data, files, name):
         if hasattr(files, 'getlist'):
@@ -58,19 +57,19 @@ class MultiUploadMetaField(forms.FileField):
             attrs=kwargs.pop('attrs', {}),
             multiple=(self.max_num is None or self.max_num > 1),
         )
-        super(MultiUploadMetaField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_python(self, data):
         ret = []
         data = data or []
         for item in data:
-            i = super(MultiUploadMetaField, self).to_python(item)
+            i = super().to_python(item)
             if i:
                 ret.append(i)
         return ret
 
     def validate(self, value):
-        super(MultiUploadMetaField, self).validate(value)
+        super().validate(value)
 
         num_files = len(value)
         if num_files and not value[0]:
@@ -132,7 +131,7 @@ class MultiMediaField(MultiUploadMetaField):
                 'accept': '{0}/*'.format(self.media_type),
             }
         })
-        super(MultiMediaField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class MultiImageField(MultiMediaField, forms.ImageField):
@@ -140,7 +139,7 @@ class MultiImageField(MultiMediaField, forms.ImageField):
 
     def __init__(self, *args, **kwargs):
         kwargs.update({'media_type': 'image'})
-        super(MultiImageField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_python(self, data):
         ret = []

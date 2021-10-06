@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class Message(models.Model):
@@ -9,5 +9,5 @@ class Message(models.Model):
 
 
 class Attachment(models.Model):
-    message = models.ForeignKey(Message, verbose_name=_('Message'))
+    message = models.ForeignKey(Message, verbose_name=_('Message'), on_delete=models.PROTECT)
     file = models.FileField(_('Attachment'), upload_to='attachments')

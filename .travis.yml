@@ -1,11 +1,11 @@
 language: python
-python: 3.7
+python: 3.9
 dist: xenial
 
 env:
-  - TOX_ENV=py2.7-dj1.11
-  - TOX_ENV=py3.7-dj2.0
-  - TOX_ENV=py3.7-dj2.1
+  - TOX_ENV=py3.9-dj2.2
+  - TOX_ENV=py3.9-dj3.1
+  - TOX_ENV=py3.9-dj3.2
   - TOX_ENV=lint
 
 install:

@@ -46,6 +46,7 @@ setup(
     description='Dead simple drop-in multi file upload field '
                 'for django forms using HTML5\'s multiple attribute.',
     long_description=LONG_DESCRIPTION,
+    long_description_content_type='text/markdown',
     author='Chive',
     author_email='kim@smuzey.ch',
     url='https://github.com/Chive/django-multiupload',

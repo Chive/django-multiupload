@@ -38,3 +38,5 @@ nosetests.xml
 env/
 .venv/
 .idea/
+testing
+attachments

@@ -59,6 +59,9 @@ class MultiUploadMetaField(forms.FileField):
             attrs=kwargs.pop('attrs', {}),
             multiple=(self.max_num is None or self.max_num > 1),
         )
+
+        if self.min_num == 0:
+            kwargs['required'] = False
         super().__init__(*args, **kwargs)
 
     def to_python(self, data):

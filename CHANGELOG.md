@@ -1,5 +1,14 @@
 # Change Log
 
+## [0.6.1](https://github.com/Chive/django-multiupload/tree/0.6.1) (2021-10-06)
+
+
+### Maintenance
+* Ensure upload to PyPI is possible :-)
+
+[Full Changelog](https://github.com/Chive/django-multiupload/compare/0.6.0...0.6.1)
+
+
 ## [0.6.0](https://github.com/Chive/django-multiupload/tree/0.6.0) (2021-10-06)
 
 

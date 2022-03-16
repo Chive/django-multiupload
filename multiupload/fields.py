@@ -18,14 +18,11 @@ class MultiUploadMetaInput(forms.ClearableFileInput):
 
     def __init__(self, *args, **kwargs):
         self.multiple = kwargs.pop('multiple', True)
-        super().__init__(*args, **kwargs)
-
-    def render(self, name, value, attrs=None, renderer=None):
+        attrs = kwargs.pop('attrs', {})
         if self.multiple:
-            if not attrs:
-                attrs = {}
             attrs['multiple'] = 'multiple'
-        return super().render(name, value, attrs, renderer)
+        kwargs.update(dict(attrs=attrs))
+        super().__init__(*args, **kwargs)
 
     def value_from_datadict(self, data, files, name):
         if hasattr(files, 'getlist'):

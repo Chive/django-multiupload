@@ -108,6 +108,12 @@ class MultiUploadMetaField(forms.FileField):
                     }
                 )
 
+    def run_validators(self, value):
+        value = value or []
+
+        for item in value:
+            super().run_validators(item)
+
 
 class MultiFileField(MultiUploadMetaField):
     """ Handles plain files. """
